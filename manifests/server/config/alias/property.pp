@@ -18,13 +18,13 @@ define scriptura::server::config::alias::property(
   $property_name = undef,
   $version = undef,
   $config_alias = undef,
+  $config_name = undef,
   $type = undef,
-  $name = undef,
   $value = ''
 ){
 
-  if ($type == undef or $name == undef) {
-    fail("Scriptura::Server::Config::Alias[${config_alias}]::Property[${title}]: parameters version, config_alias, type, name and value must be defined")
+  if ($type == undef or $config_name == undef) {
+    fail("Scriptura::Server::Config::Alias[${config_alias}]::Property[${title}]: parameters version, config_alias, type, config_name and value must be defined")
   }
 
   $scriptura_version_withoutrelease = regsubst($version, '^(\d+\.\d+\.\d+)-\d+\..*$', '\1')
@@ -43,10 +43,10 @@ define scriptura::server::config::alias::property(
     context => "/files/${scriptura_config_location}/configuration.xml",
     changes => [
       "set config/aliases/${config_alias}/properties/${property_name}/type/#text ${type}",
-      "set config/aliases/${config_alias}/properties/${property_name}/name/#text ${name}",
+      "set config/aliases/${config_alias}/properties/${property_name}/name/#text ${config_name}",
       "set config/aliases/${config_alias}/properties/${property_name}/value${set_properties_value}"
     ],
-    onlyif  => "match config/aliases/${config_alias}/properties/${property_name}/name/#text[. = \"${name}\"] size == 0"
+    onlyif  => "match config/aliases/${config_alias}/properties/${property_name}/name/#text[. = \"${config_name}\"] size == 0"
   }
 
 }
