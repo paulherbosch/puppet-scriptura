@@ -5,6 +5,7 @@ describe 'puppet::main::settings' do
   describe 'running puppet code' do
     it 'should work with no errors' do
       pp = <<-EOS
+        include profile::iac::repository_management
         include profile::iac::java_jdk
         include profile::iac::java::alternatives
 

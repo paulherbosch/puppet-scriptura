@@ -29,3 +29,15 @@ profile::iac::scriptura::server:
     key_server_password: 'userpass'
     security_server_url: 'http://license:13442'
     security_server_key: 'licensekey'
+
+cegeka-unsigned:
+  repo_root: 'staid/shared/cegeka/unsigned/el%{::operatingsystemmajrelease}/$basearch'
+  descr: 'PULP mirror cegeka/unsigned/%{::operatingsystemmajrelease}/$basearch'
+  scheme: 'https'
+  host: 'pulp.cegeka.be'
+  sslverify: true
+  sslcacert: '/etc/pki/tls/certs/ca-bundle.crt'
+  sslclientkey: '/etc/cegeka/ssl/private_keys/%{clientcert}.pem'
+  sslclientcert: '/etc/cegeka/ssl/certs/%{clientcert}.pem'
+  ensure: 'present'
+  gpgcheck: 0
