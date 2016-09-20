@@ -15,7 +15,7 @@
 # }
 #
 define scriptura::server::config::alias::property(
-  property_name = undef,
+  $property_name = undef,
   $version = undef,
   $config_alias = undef,
   $type = undef,
