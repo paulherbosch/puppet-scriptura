@@ -1,0 +1,43 @@
+profile::iac::java_jdk::version: '1.8.0_40-fcs'
+profile::iac::java_jdk::pkg_name: 'jdk1.8.0_40'
+profile::iac::java::alternatives::jdk_version: '1.8.0_40'
+
+scriptura::iac::data_dir:
+  '/data/scriptura':
+    ensure: 'directory'
+    owner:  'scriptura'
+    group:  'scriptura'
+  '/data/scriptura/plugins':
+    ensure: 'directory'
+    owner:  'scriptura'
+    group:  'scriptura'
+  '/data/scriptura/plugins/scriptura-8.0':
+    ensure: 'directory'
+    owner:  'scriptura'
+    group:  'scriptura'
+
+profile::iac::scriptura::server:
+  'scriptura-engage-process':
+    version: '8.0.15-1.cgk.el7'
+    type: 'process'
+    mail_host: 'smtp.dummy.tld'
+    server_category: 'production'
+    base_url: 'http://process:13542'
+    hostname: 'process'
+    key_server_url: 'http://license:13442'
+    key_server_username: 'userhash'
+    key_server_password: 'userpass'
+    security_server_url: 'http://license:13442'
+    security_server_key: 'licensekey'
+
+cegeka-unsigned:
+  repo_root: 'staid/shared/cegeka/unsigned/el%{::operatingsystemmajrelease}/$basearch'
+  descr: 'PULP mirror cegeka/unsigned/%{::operatingsystemmajrelease}/$basearch'
+  scheme: 'https'
+  host: 'pulp.cegeka.be'
+  sslverify: true
+  sslcacert: '/etc/pki/tls/certs/ca-bundle.crt'
+  sslclientkey: '/etc/cegeka/ssl/private_keys/%{clientcert}.pem'
+  sslclientcert: '/etc/cegeka/ssl/certs/%{clientcert}.pem'
+  ensure: 'present'
+  gpgcheck: 0

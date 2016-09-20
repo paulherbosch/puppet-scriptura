@@ -1,11 +1,12 @@
 # Define: scriptura::server::config::alias::property
 #
-# You need to specify the property title as the name of the XML tag element
+# You need to specify the property property_name as the name of the XML tag element
 # e.g. property0, property1, ...
 #
 # Sample Usage:
 #
 # scriptura::server::config::alias::property { 'property0':
+#   property_name => 'property0',
 #   version      => '7.3.24-1.cgk.el6',
 #   config_alias => 'alias0',
 #   type         => 'string',
@@ -14,6 +15,7 @@
 # }
 #
 define scriptura::server::config::alias::property(
+  $property_name = undef,
   $version = undef,
   $config_alias = undef,
   $type = undef,
@@ -35,16 +37,16 @@ define scriptura::server::config::alias::property(
     $set_properties_value = "/#text ${value}"
   }
 
-  augeas { "scriptura/configuration/aliases/${config_alias}/properties/${title}/add" :
+  augeas { "scriptura/configuration/aliases/${config_alias}/properties/${property_name}/add" :
     lens    => 'Xml.lns',
     incl    => "${scriptura_config_location}/configuration.xml",
     context => "/files/${scriptura_config_location}/configuration.xml",
     changes => [
-      "set config/aliases/${config_alias}/properties/${title}/type/#text ${type}",
-      "set config/aliases/${config_alias}/properties/${title}/name/#text ${name}",
-      "set config/aliases/${config_alias}/properties/${title}/value${set_properties_value}"
+      "set config/aliases/${config_alias}/properties/${property_name}/type/#text ${type}",
+      "set config/aliases/${config_alias}/properties/${property_name}/name/#text ${name}",
+      "set config/aliases/${config_alias}/properties/${property_name}/value${set_properties_value}"
     ],
-    onlyif  => "match config/aliases/${config_alias}/properties/${title}/name/#text[. = \"${name}\"] size == 0"
+    onlyif  => "match config/aliases/${config_alias}/properties/${property_name}/name/#text[. = \"${name}\"] size == 0"
   }
 
 }
