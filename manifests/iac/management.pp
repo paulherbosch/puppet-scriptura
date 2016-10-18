@@ -19,7 +19,8 @@ define scriptura::iac::management(
 
   include scriptura::iac::management::config
   include scriptura::iac::management::service
+  include scriptura::iac::management::backenddb
 
-  Anchor['scriptura::iac::management::begin'] -> Class['Scriptura::Iac::Management::Package'] -> Class['Scriptura::Iac::Management::Config'] ~> Class['Scriptura::Iac::Management::Service'] -> Anchor['scriptura::iac::management::end']
+  Anchor['scriptura::iac::management::begin'] -> Class['scriptura::iac::management::backenddb'] -> Class['Scriptura::Iac::Management::Package'] -> Class['Scriptura::Iac::Management::Config'] ~> Class['Scriptura::Iac::Management::Service'] -> Anchor['scriptura::iac::management::end']
 
 }
