@@ -4,9 +4,9 @@ class scriptura::iac::management::backenddb (
 
   class { 'postgresql::server': }
 
-  $database = hiera_hash('scriptura::iac::management::backenddb::database',})
-  $database_grant = hiera_hash('scriptura::iac::management::backenddb::database_grant',})
-  $role = hiera_hash('scriptura::iac::management::backenddb::role',})
+  $database = hiera_hash('scriptura::iac::management::backenddb::database',{})
+  $database_grant = hiera_hash('scriptura::iac::management::backenddb::database_grant',{})
+  $role = hiera_hash('scriptura::iac::management::backenddb::role',{})
   $pg_hba_rule = hiera_hash('scriptura::iac::management::backenddb::pg_hba_rule',{})
 
   create_resources('postgresql::server::db',$database)
